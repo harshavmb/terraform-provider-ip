@@ -33,7 +33,7 @@ node {
 
         stage ('Increment Tag && gorelease to artifactory') {
           withCredentials([[$class: 'UsernamePasswordMultiBinding', credentialsId: 'goreleaser-artifactory-creds', usernameVariable: 'ARTIFACTORY_PRODUCTION_USERNAME', passwordVariable: 'ARTIFACTORY_PRODUCTION_SECRET']]) {  
-            when(env.BRANCH_NAME == "main" || isReleasedBranch()) {
+            when(env.BRANCH_NAME == "master" || isReleasedBranch()) {
                 pushNewVersionTag(newVersion, baseVersion, releaseNotesOptions)
                 docker.withRegistry("https://${registry}", 'IZ_USER') {
                     docker.image(baseTerraformAutoImage).inside {
