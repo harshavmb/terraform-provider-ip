@@ -8,14 +8,14 @@ import (
 	"github.com/hashicorp/terraform-plugin-sdk/terraform"
 )
 
-func TestAccDataSourceAzureStackClientConfig_basic(t *testing.T) {
+func TestAccDataSourceIPv4_basic(t *testing.T) {
 	dataSourceName := "data.ip_v4.current"
 
 	resource.ParallelTest(t, resource.TestCase{
 		Providers: testAccProviders,
 		Steps: []resource.TestStep{
 			{
-				Config: testAccCheckArmClientConfig_basic,
+				Config: testAccCheckIP_basic,
 				Check: resource.ComposeTestCheckFunc(
 					testIPConfigAttr(dataSourceName, "ip", resourceBoardReadTest()),
 				),
@@ -49,6 +49,6 @@ func resourceBoardReadTest() string {
 	return ""
 }
 
-const testAccCheckArmClientConfig_basic = `
+const testAccCheckIP_basic = `
 data "ip_v4" "current" {}
 `
