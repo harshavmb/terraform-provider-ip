@@ -1,11 +1,9 @@
 package ip
 
 import (
-	"context"
+	"net"
 
-	"github.com/hashicorp/terraform-plugin-sdk/v2/diag"
-	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/schema"
-	"github.com/rdegges/go-ipify"
+	"github.com/hashicorp/terraform-plugin-sdk/helper/schema"
 )
 
 func datasourceV4() *schema.Resource {
@@ -17,22 +15,26 @@ func datasourceV4() *schema.Resource {
 				Computed:    true,
 			},
 		},
-		ReadContext: resourceBoardRead,
+		Read: resourceBoardRead,
 	}
 }
 
-func resourceBoardRead(ctx context.Context, data *schema.ResourceData, meta interface{}) diag.Diagnostics {
-	var diags diag.Diagnostics
+func resourceBoardRead(data *schema.ResourceData, meta interface{}) error {
 
-	ip, err := ipify.GetIp()
+	addrs, err := net.InterfaceAddrs()
 	if err != nil {
-		return diag.FromErr(err)
+		return err
 	}
-
-	if err := data.Set("ip", ip); err != nil {
-		return diag.FromErr(err)
+	for _, address := range addrs {
+		// check the address type and if it is not a loopback the display it
+		if ipnet, ok := address.(*net.IPNet); ok && !ipnet.IP.IsLoopback() {
+			if ipnet.IP.To4() != nil {
+				if err := data.Set("ip", ipnet.IP.String); err != nil {
+					return err
+				}
+				data.SetId(string(ipnet.IP))
+			}
+		}
 	}
-
-	data.SetId(ip)
-	return diags
+	return nil
 }
