@@ -39,6 +39,8 @@ node {
                     docker.image(baseTerraformAutoImage).inside {
                         sh '''
                           goreleaser release --rm-dist
+                          ls -lart dist/
+                          cat dist/*_metadata
                         '''
                     }
                 }
