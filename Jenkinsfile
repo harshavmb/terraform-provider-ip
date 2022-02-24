@@ -38,9 +38,7 @@ node {
                 docker.withRegistry("https://${registry}", 'IZ_USER') {
                     docker.image(baseTerraformAutoImage).inside {
                         sh '''
-                          goreleaser release --rm-dist
-                          ls -lart dist/
-                          cat dist/*_metadata
+                          goreleaser release --rm-dist                         
                         '''
                     }
                 }
