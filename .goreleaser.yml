@@ -65,8 +65,9 @@ artifactories:
     signature: true
 publishers:
   - name: production
-    #cmd: scripts/create_plugin_metadata.sh {{ .Os }} {{ .Arch }} terraform-provider-azurestack_{{ .Version }}_{{ .Os }}_{{ .Arch }}    
-    cmd: scripts/create_plugin_metadata.sh {{ .Os }} {{ .Arch }} terraform-provider-azurestack_{{ .Version }}_{{ .Os }}_{{ .Arch }} {{ .Version }}    
+    #cmd: scripts/create_plugin_metadata.sh {{ .Os }} {{ .Arch }} terraform-provider-azurestack_{{ .Version }}_{{ .Os }}_{{ .Arch }}
+    cmd: scripts/create_plugin_metadata.sh {{ .Os }} {{ .Arch }} {{ .Version }} terraform-provider-ip     
+    #cmd: scripts/create_plugin_metadata.sh {{ .Os }} {{ .Arch }} terraform-provider-azurestack_{{ .Version }}_{{ .Os }}_{{ .Arch }} {{ .Version }}    
 release:
   # to disable automatic push to github as we use artifactory
   disable: true

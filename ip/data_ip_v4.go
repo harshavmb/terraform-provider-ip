@@ -1,6 +1,8 @@
 package ip
 
 import (
+	"crypto/sha256"
+	"encoding/hex"
 	"net"
 
 	"github.com/hashicorp/terraform-plugin-sdk/helper/schema"
@@ -29,10 +31,11 @@ func resourceBoardRead(data *schema.ResourceData, meta interface{}) error {
 		// check the address type and if it is not a loopback the display it
 		if ipnet, ok := address.(*net.IPNet); ok && !ipnet.IP.IsLoopback() {
 			if ipnet.IP.To4() != nil {
-				if err := data.Set("ip", ipnet.IP.String); err != nil {
+				if err := data.Set("ip", ipnet.IP.String()); err != nil {
 					return err
 				}
-				data.SetId(string(ipnet.IP))
+				ipHash := sha256.Sum256([]byte(ipnet.IP.String()))
+				data.SetId(hex.EncodeToString(ipHash[:]))
 			}
 		}
 	}
