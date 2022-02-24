@@ -35,4 +35,4 @@ cat <<EOF > dist/$4_$3_$1_$2_metadata
 EOF
 
 ## upload the created file to artifactory
-curl --user $ARTIFACTORY_PRODUCTION_USERNAME:$ARTIFACTORY_PRODUCTION_SECRET --data-binary @dist/$4_$3_$1_$2_metadata -X PUT "https://repository.rnd.amadues.net/artifactory/generic-production-iac/terraform/providers/v1/amadeus/$provider/$3/download/$1/$2"
+curl -k --user $ARTIFACTORY_PRODUCTION_USERNAME:$ARTIFACTORY_PRODUCTION_SECRET --data-binary @dist/$4_$3_$1_$2_metadata -X PUT "https://repository.rnd.amadues.net/artifactory/generic-production-iac/terraform/providers/v1/amadeus/$provider/$3/download/$1/$2"
