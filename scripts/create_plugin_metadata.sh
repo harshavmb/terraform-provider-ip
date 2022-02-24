@@ -2,7 +2,7 @@
 set -e
 
 ## create a json metadata file of tf plugin version
-shasum=$(sha256sum "dist/$4_$3_$1_$2.zip")
+shasum=$(sha256sum "dist/$4_$3_$1_$2.zip | cut -d ' ' -f 1")
 
 ## extract the provider name from the project name
 provider=$(echo $4 | rev | cut -d- -f1 | rev)
@@ -35,4 +35,6 @@ cat <<EOF > dist/$4_$3_$1_$2_metadata
 EOF
 
 ## upload the created file to artifactory
-curl -k --user $6:$7 --upload-file dist/$4_$3_$1_$2_metadata -X PUT "https://repository.rnd.amadues.net/artifactory/generic-production-iac/terraform/providers/v1/amadeus/$provider/$3/download/$1/$2"
+curl -k --user $6:$7 --upload-file dist/$4_$3_$1_$2_metadata -X PUT "https://repository.rnd.amadeus.net/artifactory/generic-production-iac/terraform/providers/v1/amadeus/$provider/$3/download/$1/$2"
+
+echo $?
