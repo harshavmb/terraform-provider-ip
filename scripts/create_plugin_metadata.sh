@@ -5,7 +5,7 @@ set -e
 shasum=$(sha256sum "dist/$4_$3_$1_$2.zip")
 
 ## extract the provider name from the project name
-provider=$(echo $3 | rev | cut -d- -f1 | rev)
+provider=$(echo $4 | rev | cut -d- -f1 | rev)
 
 ## with the above data, now we create metadata file to upload to artifactory
 cat <<EOF > dist/$4_$3_$1_$2_metadata
@@ -16,9 +16,9 @@ cat <<EOF > dist/$4_$3_$1_$2_metadata
 "os": "$1",
 "arch": "$2",
 "filename": "$4_$3_$1_$2.zip",
-"download_url": "https://repository.adp.amadeus.net/generic-production-iac/providers/$provider/$BITBUCKET_REPOSITORY/$3/$4_$3_$1_$2.zip",
-"shasums_url": "https://repository.adp.amadeus.net/generic-production-iac/providers/$provider/$BITBUCKET_REPOSITORY/$3/$4_$3_SHA256SUMS",
-"shasums_signature_url": "https://repository.adp.amadeus.net/generic-production-iac/providers/$provider/$BITBUCKET_REPOSITORY/$3/$4_$3_SHA256SUMS.sig",
+"download_url": "https://repository.adp.amadeus.net/generic-production-iac/providers/$provider/$4/$3/$4_$3_$1_$2.zip",
+"shasums_url": "https://repository.adp.amadeus.net/generic-production-iac/providers/$provider/$4/$3/$4_$3_SHA256SUMS",
+"shasums_signature_url": "https://repository.adp.amadeus.net/generic-production-iac/providers/$provider/$4/$3/$4_$3_SHA256SUMS.sig",
 "shasum": "$shasum",
 "signing_keys": {
 "gpg_public_keys": [
@@ -35,4 +35,4 @@ cat <<EOF > dist/$4_$3_$1_$2_metadata
 EOF
 
 ## upload the created file to artifactory
-curl -k --user $ARTIFACTORY_PRODUCTION_USERNAME:$ARTIFACTORY_PRODUCTION_SECRET --data-binary @dist/$4_$3_$1_$2_metadata -X PUT "https://repository.rnd.amadues.net/artifactory/generic-production-iac/terraform/providers/v1/amadeus/$provider/$3/download/$1/$2"
+curl -k --user $ARTIFACTORY_PRODUCTION_USERNAME:$ARTIFACTORY_PRODUCTION_SECRET --upload-file dist/$4_$3_$1_$2_metadata -X PUT "https://repository.rnd.amadues.net/artifactory/generic-production-iac/terraform/providers/v1/amadeus/$provider/$3/download/$1/$2"
