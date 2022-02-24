@@ -1,7 +1,7 @@
 #!/bin/bash
 
 ## create a json metadata file of tf plugin version
-shasum = $(sha256sum "dist/$3.zip")
+shasum = $(sha256sum "dist/$4_$3_$1_$2.zip")
 
 ## extract the provider name from the project name
 provider = $(echo $3 | rev | cut -d- -f1 | rev)
