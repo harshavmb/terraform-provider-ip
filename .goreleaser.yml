@@ -69,9 +69,7 @@ publishers:
   - name: versionpush
     # Publish checksums (defaults to false)
     checksum: true
-    cmd: scripts/update-versions-file.sh {{ .Version }} {{ .Env.ARTIFACTORY_PRODUCTION_USERNAME }} {{ .Env.ARTIFACTORY_PRODUCTION_SECRET }} {{ .ProjectName }}
-    # Working directory in which to execute the command
-    dir: "/dist"
+    cmd: scripts/update-versions-file.sh {{ .Version }} {{ .Env.ARTIFACTORY_PRODUCTION_USERNAME }} {{ .Env.ARTIFACTORY_PRODUCTION_SECRET }} {{ .ProjectName }}        
 release:
   # to disable automatic push to github as we use artifactory
   disable: true
