@@ -6,10 +6,10 @@ set -e
 ## if we use commercial version of goreleaser, this can be avoided with post hooks
 ## neverthless, this is for improvement. It first checks whether new_version file exists, if yes it skips all execution.. 
 ## so that only one build runs parallelly 
-if [[ -f "new_version" ]]
+if [[ $LINUX_AMD64 -ne "linux_amd64" ]]
 then
-    echo "new_version file exists on filesystem. Exiting"
-    exit 0
+    echo "not linux_amd64, skipping rest of the execution"
+    return
 fi
 
 ## extract the provider name from the project name
