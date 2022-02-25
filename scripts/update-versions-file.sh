@@ -1,6 +1,7 @@
 #!/bin/bash
 set -e
 
+provider=$(echo $PROJECT_NAME | rev | cut -d- -f1 | rev)
 ## Check whether new_version file exists in the current dir
 ## This crappy logic is to avoid concurrent runs to push same versions file onto artifactory
 ## if we use commercial version of goreleaser, this can be avoided with post hooks
@@ -8,7 +9,6 @@ set -e
 ## so that only one build runs parallelly
 if [[ $LINUX_AMD64 -eq "linux_amd64" ]]; then
   ## extract the provider name from the project name
-  provider=$(echo $PROJECT_NAME | rev | cut -d- -f1 | rev)
 
   ## download the versions file if exists
   response=$(curl -k -Is ${ARTIFACTORY_URL}/artifactory/generic-production-iac/terraform/providers/v1/amadeus/$provider/versions | head -1 | cut -d ' ' -f2)
