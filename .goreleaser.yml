@@ -64,17 +64,17 @@ artifactories:
     # Upload signatures (defaults to false)
     signature: true
 publishers:
-  - name: production
-    cmd: scripts/create_plugin_metadata.sh
-    # Environment variables
-    env:
-      - OS={{ .Os }}
-      - ARCH={{ .Arch }}
-      - VERSION={{ .Version }}
-      - PROJECT_NAME={{ .ProjectName }}
-      - GPG_FINGERPRINT={{ .Env.GPG_FINGERPRINT }}
-      - ARTIFACTORY_USER={{ .Env.ARTIFACTORY_PRODUCTION_USERNAME }}
-      - ARTIFACTORY_PASSWORD={{ .Env.ARTIFACTORY_PRODUCTION_SECRET }}
+  #- name: production
+  #  cmd: scripts/create_plugin_metadata.sh
+  #  # Environment variables
+  #  env:
+  #    - OS={{ .Os }}
+  #    - ARCH={{ .Arch }}
+  #    - VERSION={{ .Version }}
+  #    - PROJECT_NAME={{ .ProjectName }}
+  #    - GPG_FINGERPRINT={{ .Env.GPG_FINGERPRINT }}
+  #    - ARTIFACTORY_USER={{ .Env.ARTIFACTORY_PRODUCTION_USERNAME }}
+  #    - ARTIFACTORY_PASSWORD={{ .Env.ARTIFACTORY_PRODUCTION_SECRET }}
   - name: versionpush
     # Publish versions file (checksum file is referenced here just to make only one push to artifactory)
     checksum: true
