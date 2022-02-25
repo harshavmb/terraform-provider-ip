@@ -65,9 +65,9 @@ artifactories:
     signature: true
 publishers:
   - name: production
-    #cmd: scripts/create_plugin_metadata.sh {{ .Os }} {{ .Arch }} terraform-provider-azurestack_{{ .Version }}_{{ .Os }}_{{ .Arch }}
-    cmd: scripts/create_plugin_metadata.sh {{ .Os }} {{ .Arch }} {{ .Version }} {{ .ProjectName }} {{ .Env.GPG_FINGERPRINT }} {{ .Env.ARTIFACTORY_PRODUCTION_USERNAME }} {{ .Env.ARTIFACTORY_PRODUCTION_SECRET }}    
-    #cmd: scripts/create_plugin_metadata.sh {{ .Os }} {{ .Arch }} terraform-provider-azurestack_{{ .Version }}_{{ .Os }}_{{ .Arch }} {{ .Version }}    
+    cmd: scripts/create_plugin_metadata.sh {{ .Os }} {{ .Arch }} {{ .Version }} {{ .ProjectName }} {{ .Env.GPG_FINGERPRINT }} {{ .Env.ARTIFACTORY_PRODUCTION_USERNAME }} {{ .Env.ARTIFACTORY_PRODUCTION_SECRET }}
+  - name: versionpush
+    cmd: scripts/update-versions-file.sh {{ .Version }} {{ .Env.ARTIFACTORY_PRODUCTION_USERNAME }} {{ .Env.ARTIFACTORY_PRODUCTION_SECRET }} {{ .ProjectName }}
 release:
   # to disable automatic push to github as we use artifactory
   disable: true
