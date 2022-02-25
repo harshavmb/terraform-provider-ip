@@ -68,8 +68,6 @@ publishers:
     cmd: scripts/create_plugin_metadata.sh {{ .Os }} {{ .Arch }}
     # Environment variables
     env:
-  #    - OS={{ .Os }}
-  #    - ARCH={{ .Arch }}
       - VERSION={{ .Version }}
       - PROJECT_NAME={{ .ProjectName }}
       - GPG_FINGERPRINT={{ .Env.GPG_FINGERPRINT }}
