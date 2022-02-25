@@ -16,7 +16,7 @@ fi
 provider=$(echo $PROJECT_NAME | rev | cut -d- -f1 | rev)
 
 ## download the versions file if exists
-response=$(curl -k -Is https://repository.rnd.amadeus.net/artifactory/generic-production-iac/terraform/providers/v1/amadeus/$provider/versions | head -1 | cut -d ' ' -f2)
+response=$(curl -k -Is ${ARTIFACTORY_URL}/artifactory/generic-production-iac/terraform/providers/v1/amadeus/$provider/versions | head -1 | cut -d ' ' -f2)
 
 ## create version from the passed one
 function create_version() {
@@ -60,13 +60,13 @@ function create_initial_version() {
 
 ## Upload the final file to the artifactory
 function upload_to_artifactory() {
-  curl -k --user $ARTIFACTORY_USER:$ARTIFACTORY_PASSWORD --upload-file all_versions -X PUT "https://repository.rnd.amadeus.net/artifactory/generic-production-iac/terraform/providers/v1/amadeus/$provider/versions"
+  curl -k --user $ARTIFACTORY_USER:$ARTIFACTORY_PASSWORD --upload-file all_versions -X PUT "${ARTIFACTORY_URL}/artifactory/generic-production-iac/terraform/providers/v1/amadeus/$provider/versions"
 }
 
 if [[ $response -eq "200" ]]
 then
    echo "versions file exists, downloading it"
-   curl -k -s -o versions https://repository.rnd.amadeus.net/artifactory/generic-production-iac/terraform/providers/v1/amadeus/$provider/versions
+   curl -k -s -o versions ${ARTIFACTORY_URL}/artifactory/generic-production-iac/terraform/providers/v1/amadeus/$provider/versions
    create_version
    update_version
    upload_to_artifactory

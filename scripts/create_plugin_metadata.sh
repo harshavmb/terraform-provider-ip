@@ -16,9 +16,9 @@ cat <<EOF > dist/${PROJECT_NAME}_${VERSION}_${1}_${2}_metadata
 "os": "$1",
 "arch": "$2",
 "filename": "${PROJECT_NAME}_${VERSION}_$1_$2.zip",
-"download_url": "https://repository.adp.amadeus.net/generic-production-iac/providers/$provider/$PROJECT_NAME/$VERSION/${PROJECT_NAME}_${VERSION}_$1_$2.zip",
-"shasums_url": "https://repository.adp.amadeus.net/generic-production-iac/providers/$provider/$PROJECT_NAME/$VERSION/${PROJECT_NAME}_${VERSION}_SHA256SUMS",
-"shasums_signature_url": "https://repository.adp.amadeus.net/generic-production-iac/providers/$provider/$PROJECT_NAME/$VERSION/${PROJECT_NAME}_${VERSION}_SHA256SUMS.sig",
+"download_url": "${ARTIFACTORY_URL}/generic-production-iac/providers/$provider/$PROJECT_NAME/$VERSION/${PROJECT_NAME}_${VERSION}_$1_$2.zip",
+"shasums_url": "${ARTIFACTORY_URL}/generic-production-iac/providers/$provider/$PROJECT_NAME/$VERSION/${PROJECT_NAME}_${VERSION}_SHA256SUMS",
+"shasums_signature_url": "${ARTIFACTORY_URL}/generic-production-iac/providers/$provider/$PROJECT_NAME/$VERSION/${PROJECT_NAME}_${VERSION}_SHA256SUMS.sig",
 "shasum": "$shasum",
 "signing_keys": {
 "gpg_public_keys": [
@@ -35,6 +35,6 @@ cat <<EOF > dist/${PROJECT_NAME}_${VERSION}_${1}_${2}_metadata
 EOF
 
 ## upload the created file to artifactory
-curl -k --user $ARTIFACTORY_USER:$ARTIFACTORY_PASSWORD --upload-file dist/${PROJECT_NAME}_${VERSION}_${1}_${2}_metadata -X PUT "https://repository.rnd.amadeus.net/artifactory/generic-production-iac/terraform/providers/v1/amadeus/$provider/${VERSION}/download/$1/$2"
+curl -k --user $ARTIFACTORY_USER:$ARTIFACTORY_PASSWORD --upload-file dist/${PROJECT_NAME}_${VERSION}_${1}_${2}_metadata -X PUT "${ARTIFACTORY_URL}/artifactory/generic-production-iac/terraform/providers/v1/amadeus/$provider/${VERSION}/download/$1/$2"
 
 echo $?
