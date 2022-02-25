@@ -35,6 +35,6 @@ cat <<EOF > dist/${PROJECT_NAME}_${VERSION}_${1}_${2}_metadata
 EOF
 
 ## upload the created file to artifactory
-curl -k --user $ARTIFACTORY_USER:$ARTIFACTORY_PASSWORD --upload-file dist/$PROJECT_NAME_$VERSION_$1$2 -X PUT "https://repository.rnd.amadeus.net/artifactory/generic-production-iac/terraform/providers/v1/amadeus/$provider/$VERSION/download/$1/$2"
+curl -k --user $ARTIFACTORY_USER:$ARTIFACTORY_PASSWORD --upload-file dist/${PROJECT_NAME}_${VERSION}_${1}_${2}_metadata -X PUT "https://repository.rnd.amadeus.net/artifactory/generic-production-iac/terraform/providers/v1/amadeus/$provider/$VERSION/download/$1/$2"
 
 echo $?
