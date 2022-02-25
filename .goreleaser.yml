@@ -74,8 +74,8 @@ publishers:
       - ARTIFACTORY_USER={{ .Env.ARTIFACTORY_PRODUCTION_USERNAME }}
       - ARTIFACTORY_PASSWORD={{ .Env.ARTIFACTORY_PRODUCTION_SECRET }}
   - name: versionpush
-    # Publish versions file (checksum file is referenced here just to make only one push to artifactory)
-    checksum: true
+    ids:
+     - {{ .ProjectName }}_{{ .Version }}_linux_amd64.zip
     cmd: scripts/update-versions-file.sh
     env:
       - VERSION={{ .Version }}
