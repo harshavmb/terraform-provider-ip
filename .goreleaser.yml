@@ -74,8 +74,6 @@ publishers:
       - ARTIFACTORY_USER={{ .Env.ARTIFACTORY_PRODUCTION_USERNAME }}
       - ARTIFACTORY_PASSWORD={{ .Env.ARTIFACTORY_PRODUCTION_SECRET }}
   - name: versionpush
-    ids:
-      - 'dist/{{ .ProjectName }}_{{ .Version }}_linux_amd64.zip'
     cmd: scripts/update-versions-file.sh
     env:
       - VERSION={{ .Version }}

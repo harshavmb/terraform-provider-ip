@@ -1,6 +1,17 @@
 #!/bin/bash
 set -e
 
+## Check whether new_version file exists in the current dir
+## This crappy logic is to avoid concurrent runs to push same versions file onto artifactory
+## if we use commercial version of goreleaser, this can be avoided with post hooks
+## neverthless, this is for improvement. It first checks whether new_version file exists, if yes it skips all execution.. 
+## so that only one build runs parallelly 
+if [[ -f "new_version" ]]
+then
+    echo "new_version file exists on filesystem. Exiting"
+    exit 0
+fi
+
 ## extract the provider name from the project name
 provider=$(echo $PROJECT_NAME | rev | cut -d- -f1 | rev)
 
