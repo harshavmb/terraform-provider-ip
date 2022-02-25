@@ -56,7 +56,7 @@ signs:
 
 artifactories:
   - name: production
-    target: https://repository.rnd.amadeus.net/artifactory/generic-production-iac/providers/ip/{{ .ProjectName }}/{{ .Version }}/
+    target: {{ .Env.ARTIFACTORY_URL }}/artifactory/generic-production-iac/providers/ip/{{ .ProjectName }}/{{ .Version }}/
     #target: http://<Your-Instance>:8081/artifactory/example-repo-local/{{ .ProjectName }}/{{ .Version }}/
     username: "swb2-izu-iac"
     # Upload checksums (defaults to false)
