@@ -2,21 +2,21 @@
 set -e
 
 ## create a json metadata file of tf plugin version
-shasum=$(sha256sum "dist/${PROJECT_NAME}_${VERSION}_${OS_$ARCH}.zip" | cut -d ' ' -f 1)
+shasum=$(sha256sum "dist/${PROJECT_NAME}_${VERSION}_${1}_${2}.zip" | cut -d ' ' -f 1)
 
 ## extract the provider name from the project name
 provider=$(echo ${PROJECT_NAME} | rev | cut -d- -f1 | rev)
 
 ## with the above data, now we create metadata file to upload to artifactory
-cat <<EOF > dist/${PROJECT_NAME}_${VERSION}_${OS_$ARCH}_metadata
+cat <<EOF > dist/${PROJECT_NAME}_${VERSION}_${1}_${2}_metadata
 {
 "protocols": [
 "5.1"
 ],
-"os": "$OS",
-"arch": "$ARCH",
-"filename": "$PROJECT_NAME_$VERSION_$OS_$ARCH.zip",
-"download_url": "https://repository.adp.amadeus.net/generic-production-iac/providers/$provider/$PROJECT_NAME/$VERSION/$PROJECT_NAME_$VERSION_$OS_$ARCH.zip",
+"os": "$1",
+"arch": "$2",
+"filename": "$PROJECT_NAME_$VERSION_$1$2.zip",
+"download_url": "https://repository.adp.amadeus.net/generic-production-iac/providers/$provider/$PROJECT_NAME/$VERSION/$PROJECT_NAME_$VERSION_$1$2.zip",
 "shasums_url": "https://repository.adp.amadeus.net/generic-production-iac/providers/$provider/$PROJECT_NAME/$VERSION/$PROJECT_NAME_$VERSION_SHA256SUMS",
 "shasums_signature_url": "https://repository.adp.amadeus.net/generic-production-iac/providers/$provider/$PROJECT_NAME/$VERSION/$PROJECT_NAME_$VERSION_SHA256SUMS.sig",
 "shasum": "$shasum",
@@ -35,6 +35,6 @@ cat <<EOF > dist/${PROJECT_NAME}_${VERSION}_${OS_$ARCH}_metadata
 EOF
 
 ## upload the created file to artifactory
-curl -k --user $ARTIFACTORY_USER:$ARTIFACTORY_PASSWORD --upload-file dist/$PROJECT_NAME_$VERSION_$OS_$ARCH_metadata -X PUT "https://repository.rnd.amadeus.net/artifactory/generic-production-iac/terraform/providers/v1/amadeus/$provider/$VERSION/download/$OS/$ARCH"
+curl -k --user $ARTIFACTORY_USER:$ARTIFACTORY_PASSWORD --upload-file dist/$PROJECT_NAME_$VERSION_$1$2 -X PUT "https://repository.rnd.amadeus.net/artifactory/generic-production-iac/terraform/providers/v1/amadeus/$provider/$VERSION/download/$1/$2"
 
 echo $?
