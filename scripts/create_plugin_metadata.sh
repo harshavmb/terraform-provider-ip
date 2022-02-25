@@ -2,13 +2,13 @@
 set -e
 
 ## create a json metadata file of tf plugin version
-shasum=$(sha256sum "dist/$PROJECT_NAME_$VERSION_$OS_$ARCH.zip" | cut -d ' ' -f 1)
+shasum=$(sha256sum "dist/${PROJECT_NAME}_${VERSION}_${OS_$ARCH}.zip" | cut -d ' ' -f 1)
 
 ## extract the provider name from the project name
-provider=$(echo $PROJECT_NAME | rev | cut -d- -f1 | rev)
+provider=$(echo ${PROJECT_NAME} | rev | cut -d- -f1 | rev)
 
 ## with the above data, now we create metadata file to upload to artifactory
-cat <<EOF > dist/$PROJECT_NAME_$VERSION_$OS_$ARCH_metadata
+cat <<EOF > dist/${PROJECT_NAME}_${VERSION}_${OS_$ARCH}_metadata
 {
 "protocols": [
 "5.1"
