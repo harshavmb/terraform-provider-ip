@@ -67,7 +67,11 @@ publishers:
   - name: production
     cmd: scripts/create_plugin_metadata.sh {{ .Os }} {{ .Arch }} {{ .Version }} {{ .ProjectName }} {{ .Env.GPG_FINGERPRINT }} {{ .Env.ARTIFACTORY_PRODUCTION_USERNAME }} {{ .Env.ARTIFACTORY_PRODUCTION_SECRET }}
   - name: versionpush
+    ids:
+      - '{{ .ProjectName }}_{{ .Version }}_linux_amd64.zip'
     cmd: scripts/update-versions-file.sh {{ .Version }} {{ .Env.ARTIFACTORY_PRODUCTION_USERNAME }} {{ .Env.ARTIFACTORY_PRODUCTION_SECRET }} {{ .ProjectName }}
+    # Working directory in which to execute the command
+    dir: "/dist"
 release:
   # to disable automatic push to github as we use artifactory
   disable: true
