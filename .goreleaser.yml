@@ -65,11 +65,25 @@ artifactories:
     signature: true
 publishers:
   - name: production
-    cmd: scripts/create_plugin_metadata.sh {{ .Os }} {{ .Arch }} {{ .Version }} {{ .ProjectName }} {{ .Env.GPG_FINGERPRINT }} {{ .Env.ARTIFACTORY_PRODUCTION_USERNAME }} {{ .Env.ARTIFACTORY_PRODUCTION_SECRET }}
+    cmd: scripts/create_plugin_metadata.sh
+    # Environment variables
+    env:
+      - OS={{ .Os }}
+      - ARCH={{ .Arch }}
+      - VERSION={{ .Version }}
+      - PROJECT_NAME={{ .ProjectName }}
+      - GPG_FINGERPRINT={{ .Env.GPG_FINGERPRINT }}
+      - ARTIFACTORY_USER={{ .Env.ARTIFACTORY_PRODUCTION_USERNAME }}
+      - ARTIFACTORY_PASSWORD={{ .Env.ARTIFACTORY_PRODUCTION_SECRET }}
   - name: versionpush
-    # Publish checksums (defaults to false)
+    # Publish versions file (checksum file is referenced here just to make only one push to artifactory)
     checksum: true
-    cmd: scripts/update-versions-file.sh {{ .Version }} {{ .Env.ARTIFACTORY_PRODUCTION_USERNAME }} {{ .Env.ARTIFACTORY_PRODUCTION_SECRET }} {{ .ProjectName }}        
+    cmd: scripts/update-versions-file.sh
+    env:
+      - VERSION={{ .Version }}
+      - PROJECT_NAME={{ .ProjectName }}
+      - ARTIFACTORY_USER={{ .Env.ARTIFACTORY_PRODUCTION_USERNAME }}
+      - ARTIFACTORY_PASSWORD={{ .Env.ARTIFACTORY_PRODUCTION_SECRET }}
 release:
   # to disable automatic push to github as we use artifactory
   disable: true

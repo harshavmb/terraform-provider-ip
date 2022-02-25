@@ -2,7 +2,7 @@
 set -e
 
 ## extract the provider name from the project name
-provider=$(echo $4 | rev | cut -d- -f1 | rev)
+provider=$(echo $PROJECT_NAME | rev | cut -d- -f1 | rev)
 
 ## download the versions file if exists
 response=$(curl -k -Is https://repository.rnd.amadeus.net/artifactory/generic-production-iac/terraform/providers/v1/amadeus/$provider/versions | head -1 | cut -d ' ' -f2)
@@ -14,7 +14,7 @@ function create_version() {
  "versions":
  [
    {
-     "version": "$1",
+     "version": "$VERSION",
      "protocols": ["4.0", "5.1"],
      "platforms": [
        {"os": "darwin", "arch": "amd64"},
@@ -49,22 +49,22 @@ function create_initial_version() {
 
 ## Upload the final file to the artifactory
 function upload_to_artifactory() {
-  curl -k --user $1:$2 --upload-file all_versions -X PUT "https://repository.rnd.amadeus.net/artifactory/generic-production-iac/terraform/providers/v1/amadeus/$provider/versions"
+  curl -k --user $ARTIFACTORY_USER:$ARTIFACTORY_PASSWORD --upload-file all_versions -X PUT "https://repository.rnd.amadeus.net/artifactory/generic-production-iac/terraform/providers/v1/amadeus/$provider/versions"
 }
 
 if [[ $response -eq "200" ]]
 then
    echo "versions file exists, downloading it"
    curl -k -s -o versions https://repository.rnd.amadeus.net/artifactory/generic-production-iac/terraform/providers/v1/amadeus/$provider/versions
-   create_version $1
+   create_version
    update_version
-   upload_to_artifactory $2 $3
+   upload_to_artifactory
 elif [[ $response -eq "404" ]]
 then
    echo "versions file does not exist, it's a new provider"
-   create_version $1
+   create_version
    create_initial_version
-   upload_to_artifactory $2 $3
+   upload_to_artifactory
 else
    echo "Some error while downloading versions file from artifactory"
    exit 1
