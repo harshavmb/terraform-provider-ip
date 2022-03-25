@@ -49,14 +49,14 @@ function upload_to_artifactory() {
 
 ## Check whether new_version file exists in the current dir
 ## This crappy logic is to avoid concurrent runs to push same versions file onto artifactory
-## if we use commercial version of goreleaser, this can be avoided with post hooks
+## if we use commercial version of goreleaser, this can be avoided with post hooks (after)
 ## neverthless, this is for improvement. It first checks whether new_version file exists, if yes it skips all execution..
 ## so that only one build runs parallelly
-if [[ $LINUX_AMD64 -eq "linux_amd64" ]]; then
+if [[ "$LINUX_AMD64" == "linux_amd64" ]]; then
   ## extract the provider name from the project name
 
-  ## download the versions file if exists
-  response=$(curl -k -Is ${ARTIFACTORY_URL}/artifactory/generic-production-iac/terraform/providers/v1/amadeus/$provider/versions | head -1 | cut -d ' ' -f2)
+  ## download the versions file if exists  
+  response=$(curl -k -Is ${ARTIFACTORY_URL}/artifactory/generic-production-iac/terraform/providers/v1/amadeus/$provider/versions | head -1 | cut -d ' ' -f2)  
 
   if [[ $response -eq "200" ]]; then
     echo "versions file exists, downloading it"
