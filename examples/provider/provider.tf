@@ -1,3 +1,3 @@
-provider "scaffolding" {
+provider "ip" {
   # example configuration here
 }
