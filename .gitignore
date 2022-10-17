@@ -38,3 +38,6 @@ config
 
 # Terraform
 **.tf
+
+# Goreleaser
+dist/
