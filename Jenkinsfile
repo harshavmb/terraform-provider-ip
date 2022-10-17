@@ -39,7 +39,8 @@ node {
           withCredentials([
                 string(credentialsId: 'GPG_FINGERPRINT', variable: 'GPG_FINGERPRINT'),
                 file(credentialsId: 'ash-gpg-key', variable: 'ASH_GPG_KEY'),
-                usernamePassword(credentialsId: '	goreleaser-artifactory-creds', usernameVariable: 'ARTIFACTORY_PRODUCTION_USERNAME', passwordVariable: 'ARTIFACTORY_PRODUCTION_SECRET')
+                usernamePassword(credentialsId: 'goreleaser-artifactory-creds', usernameVariable: 'ARTIFACTORY_PRODUCTION_USERNAME', passwordVariable: 'ARTIFACTORY_PRODUCTION_SECRET'),
+                usernamePassword(credentialsId: 'MUC_ARTIFACTORY_REGISTRY_TOKEN', usernameVariable: 'MUC_REGISTRY_HOST', passwordVariable: 'MUC_TOKEN')
           ]) {  
             when(env.BRANCH_NAME == "master" || isReleasedBranch()) {
                 pushNewVersionTag(newVersion, baseVersion, releaseNotesOptions)
@@ -52,6 +53,7 @@ node {
                           tar -xf /tmp/goreleaser.tar.gz --directory /tmp/
                           wget -q -O /tmp/binary.zip https://repository.adp.amadeus.net/generic-production-iac/binaries/tf-provider-registry-api-generator/1.0.1/tf-provider-registry-api-generator_1.0.1_linux_amd64.zip
                           unzip -o /tmp/binary.zip -d /tmp/ && mv /tmp/tf-provider-registry-api-generator* /tmp/tf-provider-registry-api-generator
+                          echo -e "credentials \\"$MUC_REGISTRY_HOST\\" {\n   token = \\"$MUC_TOKEN\\"\n}\ncredentials \\"$RND_REGISTRY_HOST\\" {\n   token = \\"$RND_TOKEN\\"\n}" > .terraformrc
                           /tmp/goreleaser release --rm-dist                                                   
                         '''
                     }
