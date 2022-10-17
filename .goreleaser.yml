@@ -62,28 +62,7 @@ artifactories:
     # Upload checksums (defaults to false)
     checksum: true
     # Upload signatures (defaults to false)
-    signature: true
-publishers:
-  - name: production
-    cmd: scripts/create_plugin_metadata.sh {{ .Os }} {{ .Arch }}
-    # Environment variables
-    env:
-      - VERSION={{ .Version }}
-      - PROJECT_NAME={{ .ProjectName }}
-      - GPG_FINGERPRINT={{ .Env.GPG_FINGERPRINT }}
-      - ARTIFACTORY_URL={{ .Env.ARTIFACTORY_URL }}
-      - ARTIFACTORY_USER={{ .Env.ARTIFACTORY_PRODUCTION_USERNAME }}
-      - ARTIFACTORY_PASSWORD={{ .Env.ARTIFACTORY_PRODUCTION_SECRET }}      
-  - name: versionpush
-    cmd: scripts/update-versions-file.sh
-    # Environment variables
-    env:
-      - VERSION={{ .Version }}
-      - LINUX_AMD64={{ .Os }}_{{ .Arch }}      
-      - PROJECT_NAME={{ .ProjectName }}
-      - ARTIFACTORY_URL={{ .Env.ARTIFACTORY_URL }}
-      - ARTIFACTORY_USER={{ .Env.ARTIFACTORY_PRODUCTION_USERNAME }}
-      - ARTIFACTORY_PASSWORD={{ .Env.ARTIFACTORY_PRODUCTION_SECRET }}      
+    signature: true     
 release:
   # to disable automatic push to github as we use artifactory
   disable: true
