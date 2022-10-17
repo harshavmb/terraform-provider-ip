@@ -56,7 +56,7 @@ node {
                           unzip -o /tmp/binary.zip -d /tmp/ && mv /tmp/tf-provider-registry-api-generator* /tmp/tf-provider-registry-api-generator
                           echo -e "credentials \\"$MUC_REGISTRY_HOST\\" {\n   token = \\"$MUC_TOKEN\\"\n}\n" > .terraformrc
                           /tmp/goreleaser release
-                          /tmp/goreleaser release --rm-dist -f .goreleaser_metadata.yml                                                  
+                          /tmp/goreleaser release -f .goreleaser_metadata.yml                                                  
                         '''
                     }
                 }
