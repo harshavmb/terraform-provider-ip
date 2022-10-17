@@ -65,7 +65,7 @@ artifactories:
     signature: true
 
 publishers:
-  - name: generate-tf-api-documents
+  - name: production
     cmd: >-
       /tmp/tf-provider-registry-api-generator      
       --bucket-name 'generic-production-iac'
