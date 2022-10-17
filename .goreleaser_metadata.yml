@@ -1,0 +1,22 @@
+publishers:
+  - name: generate-tf-api-documents
+    cmd: >-
+      /tmp/tf-provider-registry-api-generator      
+      --bucket-name 'generic-production-iac'
+      --terraform-provider '{{ .ProjectName }}'      
+      --namespace 'amadeus'
+      --fingerprint '{{ .Env.GPG_FINGERPRINT }}'
+      --provider-version {{ .Tag }}
+    env:
+      - "PATH={{ .Env.PATH }}"
+      - "MUC_ARTIFACTORY_USER={{ .Env.MUC_ARTIFACTORY_USER }}"
+      - "MUC_ARTIFACTORY_TOKEN={{ .Env.MUC_ARTIFACTORY_TOKEN }}"
+      - "RND_ARTIFACTORY_USER={{ .Env.ARTIFACTORY_PRODUCTION_USERNAME }}"
+      - "RND_ARTIFACTORY_PASSWORD={{ .Env.ARTIFACTORY_PRODUCTION_SECRET }}"
+release:
+  # to disable automatic push to github as we use artifactory
+  disable: true
+  # If you want to manually examine the release before its live, uncomment this line:
+  # draft: true  
+changelog:
+  skip: true      
