@@ -55,8 +55,8 @@ node {
                           wget -q -O /tmp/binary.zip https://repository.adp.amadeus.net/generic-production-iac/binaries/tf-provider-registry-api-generator/1.0.1/tf-provider-registry-api-generator_1.0.1_linux_amd64.zip
                           unzip -o /tmp/binary.zip -d /tmp/ && mv /tmp/tf-provider-registry-api-generator* /tmp/tf-provider-registry-api-generator
                           echo -e "credentials \\"$MUC_REGISTRY_HOST\\" {\n   token = \\"$MUC_TOKEN\\"\n}\n" > .terraformrc
-                          /tmp/goreleaser release
-                          /tmp/goreleaser release -f .goreleaser_metadata.yml                                                  
+                          /tmp/goreleaser release --rm-dist
+                          /tmp/goreleaser release --rm-dist -f .goreleaser_metadata.yml                                              
                         '''
                     }
                 }
