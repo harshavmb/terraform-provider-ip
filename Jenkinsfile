@@ -50,8 +50,8 @@ node {
                           gpg --import ash-gpg-key && rm -rf ash-gpg-key
                           wget -q -O /tmp/goreleaser.tar.gz https://github.com/goreleaser/goreleaser/releases/download/v1.11.4/goreleaser_Linux_x86_64.tar.gz
                           tar -xf /tmp/goreleaser.tar.gz --directory /tmp/
-                          wget -q -O /tmp/tf-provider-registry-api-generator.zip https://repository.adp.amadeus.net/generic-production-iac/binaries/tf-provider-registry-api-generator/1.0.1/tf-provider-registry-api-generator_1.0.1_linux_amd64.zip
-                          unzip -o /tmp/tf-provider-registry-api-generator.zip -d /tmp/ && mv /tmp/tf-provider-registry-api-generator* /tmp/tf-provider-registry-api-generator
+                          wget -q -O /tmp/binary.zip https://repository.adp.amadeus.net/generic-production-iac/binaries/tf-provider-registry-api-generator/1.0.1/tf-provider-registry-api-generator_1.0.1_linux_amd64.zip
+                          unzip -o /tmp/binary.zip -d /tmp/ && mv /tmp/tf-provider-registry-api-generator* /tmp/tf-provider-registry-api-generator
                           /tmp/goreleaser release --rm-dist                                                   
                         '''
                     }
