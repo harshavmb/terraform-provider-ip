@@ -68,5 +68,16 @@ release:
   disable: true
   # If you want to manually examine the release before its live, uncomment this line:
   # draft: true
+publishers:
+  - name: generate-tf-api-documents
+    cmd: >-
+      /tmp/tf-provider-registry-api-generator      
+      --bucket-name 'generic-production-iac'
+      --terraform-provider '{{ .ProjectName }}'      
+      --namespace 'amadeus'
+      --fingerprint '{{ .Env.GPG_FINGERPRINT }}'
+      --provider-version {{ .Tag }}
+    env:
+      - "PATH={{ .Env.PATH }}"  
 changelog:
   skip: true
