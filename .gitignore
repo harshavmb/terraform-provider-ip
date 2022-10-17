@@ -17,6 +17,7 @@
 .terraform
 *.tfstate*
 *.log
+*.terraformrc
 
 # Binary
 terraform-provider-miro
