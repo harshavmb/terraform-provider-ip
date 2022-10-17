@@ -11,7 +11,7 @@ node {
             baseTerraformAutoImage = "docker-production/iac/terraform-automation-azr:${terraformAutoImageVersion}"
             baseVersion = '1.0'
             newVersion = newVersion(baseVersion)
-            registry = 'dockerhub.rnd.amadeus.net:5000'
+            registry = 'dockerhub.rnd.amadeus.net'
             baseImage = 'maven:3.6.3-jdk-11'
             // pageId for https://rndwww.nce.amadeus.net/confluence/display/IBSDC/IaC+Release+Notes
             //releaseNotesOptions = ['spaceKey': 'IBSDC', 'parentPageId': 1654937615]
