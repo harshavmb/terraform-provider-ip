@@ -39,8 +39,7 @@ node {
           withCredentials([
                 string(credentialsId: 'GPG_FINGERPRINT', variable: 'GPG_FINGERPRINT'),
                 file(credentialsId: 'ash-gpg-key', variable: 'ASH_GPG_KEY'),
-                usernamePassword(credentialsId: 'goreleaser-artifactory-creds', usernameVariable: 'ARTIFACTORY_PRODUCTION_USERNAME', passwordVariable: 'ARTIFACTORY_PRODUCTION_SECRET'),
-                usernamePassword(credentialsId: 'goreleaser-artifactory-creds', usernameVariable: 'RND_ARTIFACTORY_USER', passwordVariable: 'RND_ARTIFACTORY_PASSWORD'),
+                usernamePassword(credentialsId: 'goreleaser-artifactory-creds', usernameVariable: 'ARTIFACTORY_PRODUCTION_USERNAME', passwordVariable: 'ARTIFACTORY_PRODUCTION_SECRET'),                
                 usernamePassword(credentialsId: 'MUC_ARTIFACTORY_REGISTRY_TOKEN', usernameVariable: 'MUC_REGISTRY_HOST', passwordVariable: 'MUC_TOKEN'),
                 usernamePassword(credentialsId: 'MUC-ARTIFACTORY-TOKEN', usernameVariable: 'MUC_ARTIFACTORY_USER', passwordVariable: 'MUC_ARTIFACTORY_TOKEN')
           ]) {  

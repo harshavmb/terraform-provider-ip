@@ -78,6 +78,10 @@ publishers:
       --fingerprint '{{ .Env.GPG_FINGERPRINT }}'
       --provider-version {{ .Tag }}
     env:
-      - "PATH={{ .Env.PATH }}"  
+      - "PATH={{ .Env.PATH }}"
+      - "MUC_ARTIFACTORY_USER={{ .Env.MUC_ARTIFACTORY_USER }}"
+      - "MUC_ARTIFACTORY_TOKEN={{ .Env.MUC_ARTIFACTORY_TOKEN }}"
+      - "RND_ARTIFACTORY_USER={{ .Env.ARTIFACTORY_PRODUCTION_USERNAME }}"
+      - "RND_ARTIFACTORY_PASSWORD={{ .Env.ARTIFACTORY_PRODUCTION_SECRET }}"  
 changelog:
   skip: true
