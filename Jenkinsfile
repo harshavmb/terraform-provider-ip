@@ -46,7 +46,11 @@ node {
                 docker.withRegistry("https://${registry}", 'IZ_USER') {
                     docker.image(baseTerraformAutoImage).inside {
                         sh '''
-                          goreleaser release --rm-dist                         
+                          cp "${ASH_GPG_KEY}" .
+                          gpg --import ash-gpg-key && rm -rf ash-gpg-key
+                          wget -q -O /tmp/goreleaser.tar.gz https://github.com/goreleaser/goreleaser/releases/download/v1.11.4/goreleaser_Linux_x86_64.tar.gz
+                          tar -xf /tmp/goreleaser.tar.gz --directory /tmp/
+                          /tmp/goreleaser release --rm-dist                                                   
                         '''
                     }
                 }
