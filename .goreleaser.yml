@@ -57,8 +57,7 @@ signs:
 artifactories:
   - name: production
     target: https://repository.rnd.amadeus.net/artifactory/generic-production-iac/providers/ip/{{ .ProjectName }}/{{ .Version }}/
-    #target: http://<Your-Instance>:8081/artifactory/example-repo-local/{{ .ProjectName }}/{{ .Version }}/
-    #username: '{{ .Env.ARTIFACTORY_PRODUCTION_USERNAME }}'
+    #target: http://<Your-Instance>:8081/artifactory/example-repo-local/{{ .ProjectName }}/{{ .Version }}/    
     # Upload checksums (defaults to false)
     checksum: true
     # Upload signatures (defaults to false)
