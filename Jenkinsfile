@@ -44,7 +44,7 @@ node {
                 usernamePassword(credentialsId: 'MUC_ARTIFACTORY_REGISTRY_TOKEN', usernameVariable: 'MUC_REGISTRY_HOST', passwordVariable: 'MUC_ARTIFACTORY_TOKEN')                
           ]) {
                 when(env.BRANCH_NAME == 'master' || isReleasedBranch()) {
-                    pushNewVersionTag(newVersion, baseVersion, releaseNotesOptions)
+                    //pushNewVersionTag(newVersion, baseVersion, releaseNotesOptions)
                     docker.withRegistry("https://${registry}", 'IZ_USER') {
                         docker.image(baseTerraformAutoImage).inside {
                             sh '''
@@ -55,7 +55,7 @@ node {
                               wget -q -O /tmp/binary.zip https://repository.adp.amadeus.net/generic-production-iac/binaries/tf-provider-registry-api-generator/1.0.2/tf-provider-registry-api-generator_1.0.2_linux_amd64.zip
                               unzip -o /tmp/binary.zip -d /tmp/ && mv /tmp/tf-provider-registry-api-generator* /tmp/tf-provider-registry-api-generator
                               echo -e "credentials \\"$MUC_REGISTRY_HOST\\" {\n   token = \\"$MUC_ARTIFACTORY_TOKEN\\"\n}\n" > .terraformrc
-                              /tmp/goreleaser release --rm-dist --debug
+                              GORELEASER_PREVIOUS_TAG=1.0.75 GORELEASER_CURRENT_TAG=1.0.76 /tmp/goreleaser release --rm-dist --debug
                         '''
                         }
                     }
