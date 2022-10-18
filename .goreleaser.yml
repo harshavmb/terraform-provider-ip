@@ -17,24 +17,24 @@ builds:
   ldflags:
     - '-s -w -X main.version={{.Version}} -X main.commit={{.Commit}}'
   goos:
-    #- freebsd
-    #- windows
+    - freebsd
+    - windows
     - linux
-    #- darwin
+    - darwin
   goarch:
     - amd64
-    #- '386'
-    #- arm
-    #- arm64
-  ignore:
-    - goos: darwin
-      goarch: '386'
-      # windows_arm64 builds fail: exit status 2: # golang.org/x/sys/windows
-      #../../../.go/pkg/mod/golang.org/x/sys@v0.0.0-20200223170610-d5e6a3e2c0ae/windows/zsyscall_windows.go:2833:38: undefined: WSAData
-      #../../../.go/pkg/mod/golang.org/x/sys@v0.0.0-20200223170610-d5e6a3e2c0ae/windows/zsyscall_windows.go:3106:51: undefined: Servent
-      #../../../.go/pkg/mod/golang.org/x/sys@v0.0.0-20200223170610-d5e6a3e2c0ae/windows/zsyscall_windows.go:3120:50: undefined: Servent    
-    - goos: windows
-      goarch: arm64
+    - '386'
+    - arm
+    - arm64
+  #ignore:
+  #  - goos: darwin
+  #    goarch: '386'
+  #    # windows_arm64 builds fail: exit status 2: # golang.org/x/sys/windows
+  #    #../../../.go/pkg/mod/golang.org/x/sys@v0.0.0-20200223170610-d5e6a3e2c0ae/windows/zsyscall_windows.go:2833:38: undefined: WSAData
+  #    #../../../.go/pkg/mod/golang.org/x/sys@v0.0.0-20200223170610-d5e6a3e2c0ae/windows/zsyscall_windows.go:3106:51: undefined: Servent
+  #    #../../../.go/pkg/mod/golang.org/x/sys@v0.0.0-20200223170610-d5e6a3e2c0ae/windows/zsyscall_windows.go:3120:50: undefined: Servent    
+  #  - goos: windows
+  #    goarch: arm64
   binary: '{{ .ProjectName }}_v{{ .Version }}_x4'
 archives:
 - format: zip
