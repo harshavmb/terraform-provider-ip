@@ -4,7 +4,7 @@ before:
   hooks:
     # this is just an example and not a requirement for provider building/publishing
     - go mod tidy
-dist: temp-dist/    
+dist: dist2/    
 builds:
 - env:
     # goreleaser does not work with CGO, it could also complicate
@@ -68,7 +68,7 @@ artifactories:
 publishers:
   - name: Generate and Publish provider metadata
     cmd: >-
-      mkdir dist && /tmp/tf-provider-registry-api-generator      
+      /tmp/tf-provider-registry-api-generator      
       --bucket-name 'generic-production-iac'
       --terraform-provider '{{ .ProjectName }}'      
       --namespace 'amadeus'
