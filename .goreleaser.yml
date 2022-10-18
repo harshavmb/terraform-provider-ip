@@ -3,8 +3,7 @@
 before:
   hooks:
     # this is just an example and not a requirement for provider building/publishing
-    - go mod tidy
-dist: dist2/    
+    - go mod tidy   
 builds:
 - env:
     # goreleaser does not work with CGO, it could also complicate
@@ -59,7 +58,7 @@ artifactories:
   - name: production
     target: https://repository.rnd.amadeus.net/artifactory/generic-production-iac/providers/ip/{{ .ProjectName }}/{{ .Version }}/
     #target: http://<Your-Instance>:8081/artifactory/example-repo-local/{{ .ProjectName }}/{{ .Version }}/
-    username: "swb2-izu-iac"
+    username: '{{ .Env.ARTIFACTORY_PRODUCTION_USERNAME }}'
     # Upload checksums (defaults to false)
     checksum: true
     # Upload signatures (defaults to false)
@@ -75,11 +74,9 @@ publishers:
       --fingerprint '{{ .Env.GPG_FINGERPRINT }}'
       --provider-version {{ .Tag }}
     env:
-      - "PATH={{ .Env.PATH }}"
-      - "MUC_ARTIFACTORY_USER={{ .Env.MUC_ARTIFACTORY_USER }}"
-      - "MUC_ARTIFACTORY_TOKEN={{ .Env.MUC_ARTIFACTORY_TOKEN }}"
-      - "RND_ARTIFACTORY_USER={{ .Env.ARTIFACTORY_PRODUCTION_USERNAME }}"
-      - "RND_ARTIFACTORY_PASSWORD={{ .Env.ARTIFACTORY_PRODUCTION_SECRET }}"
+      - "PATH={{ .Env.PATH }}"      
+      - "MUC_ARTIFACTORY_TOKEN={{ .Env.MUC_ARTIFACTORY_TOKEN }}"      
+      - "RND_ARTIFACTORY_TOKEN={{ .Env.RND_ARTIFACTORY_TOKEN }}"
     
 release: 
   # to disable automatic push to github as we use artifactory
