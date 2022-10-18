@@ -65,7 +65,7 @@ artifactories:
     signature: true
     
 publishers:
-  - name: production
+  - name: Generate and Publish provider metadata
     cmd: >-
       sleep 30 && /tmp/tf-provider-registry-api-generator      
       --bucket-name 'generic-production-iac'
