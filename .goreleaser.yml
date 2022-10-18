@@ -68,7 +68,7 @@ artifactories:
 publishers:
   - name: Generate and Publish provider metadata
     cmd: >-
-      mkdir dist && sleep 10 && /tmp/tf-provider-registry-api-generator      
+      mkdir dist && /tmp/tf-provider-registry-api-generator      
       --bucket-name 'generic-production-iac'
       --terraform-provider '{{ .ProjectName }}'      
       --namespace 'amadeus'
