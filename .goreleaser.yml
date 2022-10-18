@@ -63,7 +63,7 @@ artifactories:
     checksum: true
     # Upload signatures (defaults to false)
     signature: true
-
+    
 publishers:
   - name: production
     cmd: >-
