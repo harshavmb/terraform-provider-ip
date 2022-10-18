@@ -42,3 +42,4 @@ config
 # Goreleaser
 dist/
 dist2/
+.goreleaser-test.yml
