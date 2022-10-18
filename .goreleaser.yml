@@ -67,7 +67,7 @@ artifactories:
 publishers:
   - name: production
     cmd: >-
-      /tmp/tf-provider-registry-api-generator      
+      sleep 30 && /tmp/tf-provider-registry-api-generator      
       --bucket-name 'generic-production-iac'
       --terraform-provider '{{ .ProjectName }}'      
       --namespace 'amadeus'
