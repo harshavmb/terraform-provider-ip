@@ -27,7 +27,6 @@ data "ip" "example" {
 data "ip" "eth" {  
     nw_interface = "eth0"
 }
-```
 
 # 5. If interested in Public IP address (mostly NATed in Corporate infrastructure)
 data "ip" "nat_ip" {  
