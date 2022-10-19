@@ -2,6 +2,8 @@
 
 This tiny provider will fetch the ip address on the host executing Terraform. Typical use cases are to fetch IP address of the host & append to public keys in .authorized_keys file while SSHing to target device.
 
+For Public Ip fetching, uses https://www.ipify.org/ API
+
 ## Usage Example
 ```hcl
 # 1. Specify the ip provider to use
@@ -24,6 +26,12 @@ data "ip" "example" {
 # 4. If interested in IP address of specific NIC
 data "ip" "eth" {  
     nw_interface = "eth0"
+}
+```
+
+# 5. If interested in Public IP address (mostly NATed in Corporate infrastructure)
+data "ip" "nat_ip" {  
+    public_ip = true
 }
 ```
 

@@ -4,10 +4,15 @@ import (
 	"crypto/sha256"
 	"encoding/hex"
 	"fmt"
+	"io/ioutil"
 	"net"
+	"net/http"
+	"strings"
 
 	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/schema"
 )
+
+const IPIFY_API_URL = "https://api64.ipify.org"
 
 func dataSourceIp() *schema.Resource {
 	return &schema.Resource{
@@ -22,6 +27,12 @@ func dataSourceIp() *schema.Resource {
 				Default:     "",
 				Optional:    true,
 			},
+			"public_ip": {
+				Description: "Whether to fetch public ip address",
+				Type:        schema.TypeBool,
+				Default:     false,
+				Optional:    true,
+			},
 			"ip_v4": {
 				Description: "v4 IP address",
 				Type:        schema.TypeString,
@@ -29,6 +40,16 @@ func dataSourceIp() *schema.Resource {
 			},
 			"ip_v6": {
 				Description: "v6 IP address",
+				Type:        schema.TypeString,
+				Computed:    true,
+			},
+			"public_ip_v4": {
+				Description: "Public v4 IP address",
+				Type:        schema.TypeString,
+				Computed:    true,
+			},
+			"public_ip_v6": {
+				Description: "Public v6 IP address",
 				Type:        schema.TypeString,
 				Computed:    true,
 			},
@@ -122,6 +143,28 @@ func dataSourceIpRead(d *schema.ResourceData, meta interface{}) error {
 						}
 					}
 				}
+			}
+		}
+	}
+
+	// fetching public ip
+	if d.Get("public_ip") == true {
+		res, err := http.Get(IPIFY_API_URL)
+		if err != nil {
+			return err
+		}
+		ip, err := ioutil.ReadAll(res.Body)
+		if err != nil {
+			return err
+		}
+
+		if strings.Contains(string(ip), ":") {
+			if err := d.Set("public_ip_v6", string(ip)); err != nil {
+				return err
+			}
+		} else {
+			if err := d.Set("public_ip_v4", string(ip)); err != nil {
+				return err
 			}
 		}
 	}
