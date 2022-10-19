@@ -36,3 +36,6 @@ website/vendor
 
 # vscode
 *.vscode
+
+# Jenkins CI
+.terraformrc
