@@ -39,3 +39,6 @@ website/vendor
 
 # Jenkins CI
 .terraformrc
+
+# never upload the build to git
+terraform-provider-ip

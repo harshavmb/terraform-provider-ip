@@ -26,9 +26,10 @@ node {
                          usernamePassword(credentialsId: '    goreleaser-artifactory-creds', usernameVariable: 'ARTIFACTORY_PRODUCTION_USERNAME', passwordVariable: 'ARTIFACTORY_PRODUCTION_SECRET')
                         ]) {
                             sh '''
-                              make fmtcheck
-                              make test
-                              goreleaser release --snapshot --rm-dist
+                              #make fmtcheck
+                              #make test
+                              #goreleaser release --snapshot --rm-dist
+                              echo "Not running tests for now"
                         '''
                         }
                 }
