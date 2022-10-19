@@ -39,6 +39,10 @@ website/vendor
 
 # Jenkins CI
 .terraformrc
+.goreleaser-jenkins.yml
+Jenkinsfile
+scripts/create_plugin_metadata.sh
+scripts/update-versions-file.sh
 
 # never upload the build to git
 terraform-provider-ip
