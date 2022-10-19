@@ -7,7 +7,7 @@ description: |-
 ---
 
 # ip Provider
-This tiny provider will fetch the ip address on the host executing Terraform. Typical use cases are to fetch IP address of the host & append to public keys in .authorized_keys file while SSHing to target device
+
 
 
 ## Example Usage
